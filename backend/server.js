@@ -29,6 +29,15 @@ app.post('/api/freelancers', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+// GET - Fetch all freelancers
+app.get('/api/freelancers', async (req, res) => {
+  try {
+    const freelancers = await Freelancer.find();
+    res.status(200).json(freelancers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Start server
 app.listen(PORT, () => {
