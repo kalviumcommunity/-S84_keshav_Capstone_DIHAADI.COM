@@ -1,11 +1,12 @@
+// backend/models/Freelancer.js
 const mongoose = require('mongoose');
 
 const freelancerSchema = new mongoose.Schema({
-  name: String,
-  skill: String,
+  name: { type: String, required: true },
+  skills: [String],
+  phone: { type: String, required: true },
   location: String,
-  rating: Number,
-  available: Boolean
-});
+  available: { type: Boolean, default: true },
+}, { timestamps: true });
 
 module.exports = mongoose.model('Freelancer', freelancerSchema);
