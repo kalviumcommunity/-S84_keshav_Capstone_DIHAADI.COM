@@ -29,6 +29,32 @@ app.post('/api/freelancers', async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+// GET - Fetch all freelancers
+app.get('/api/freelancers', async (req, res) => {
+  try {
+    const freelancers = await Freelancer.find();
+    res.status(200).json(freelancers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+// PUT - Update an existing freelancer
+app.put('/api/freelancers/:id', async (req, res) => {
+  try {
+    const updatedFreelancer = await Freelancer.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+    if (!updatedFreelancer) {
+      return res.status(404).json({ error: 'Freelancer not found' });
+    }
+    res.status(200).json(updatedFreelancer);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Start server
 app.listen(PORT, () => {
