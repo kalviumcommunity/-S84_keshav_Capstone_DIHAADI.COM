@@ -25,3 +25,13 @@ const freelancerSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 module.exports = mongoose.model("Freelancer", freelancerSchema);
+
+freelancerSchema.virtual("projects", {
+  ref: "Project",
+  localField: "_id",
+  foreignField: "freelancer",
+});
+freelancerSchema.set("toObject", { virtuals: true });
+freelancerSchema.set("toJSON", { virtuals: true });
+
+

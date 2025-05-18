@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Freelancer = require('./models/Freelancer');
+const freelancerRoutes = require("./routes/freelancerRoutes");
+const projectRoutes = require("./routes/projectRoutes");
+
 
 dotenv.config();
 
@@ -54,6 +57,31 @@ app.put('/api/freelancers/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+app.post("/api/projects", async (req, res) => {
+  try {
+    const project = new Project(req.body); // include freelancer id in body
+    const saved = await project.save();
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+app.get("/api/projects", async (req, res) => {
+  try {
+    const projects = await Project.find().populate("freelancer"); // populating freelancer data
+    res.json(projects);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error(err));
+
+app.use("/api/freelancers", freelancerRoutes);
+app.use("/api/projects", projectRoutes);
 
 
 // Start server
