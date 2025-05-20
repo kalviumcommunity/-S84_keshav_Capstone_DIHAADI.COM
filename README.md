@@ -62,3 +62,9 @@ Day 9
 Setup Node.js backend + test APIs with Postman
 Day 10
 Connect backend to frontend, test GET/POSt
+
+
+
+
+netlfiy deployment link :
+https://wondrous-chimera-70d767.netlify.app/
