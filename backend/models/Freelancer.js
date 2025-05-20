@@ -35,3 +35,11 @@ freelancerSchema.set("toObject", { virtuals: true });
 freelancerSchema.set("toJSON", { virtuals: true });
 
 
+
+freelancerSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  skills: [String],
+});
+
+module.exports = mongoose.model("Freelancer", freelancerSchema);
